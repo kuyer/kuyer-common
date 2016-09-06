@@ -11,5 +11,5 @@ public class Constants {
 	
 	/** 分页情况下，每页显示记录数 **/
 	public static final Integer PAGE_LIMIT = 40;
-
+	
 }

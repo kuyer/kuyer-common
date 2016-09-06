@@ -1,6 +1,5 @@
 package io.github.kuyer.common.model;
 
-import java.io.Serializable;
 import java.util.List;
 
 import io.github.kuyer.common.Constants;
@@ -9,9 +8,20 @@ import io.github.kuyer.common.Constants;
  * 结果类
  * @author rory.zhang
  */
-public class Results<T> extends Bases implements Serializable {
+public class Results<T> extends Bases {
 
-	private static final long serialVersionUID = -4168943982406858903L;
+	private static final long serialVersionUID = -9213993970295101796L;
+	
+	/** 失败码 **/
+	public static final String RESULT_FAIL = "0";
+	/** 成功码 **/
+	public static final String RESULT_SUCCESS = "1";
+	/** 未登录码 **/
+	public static final String RESULT_NOLOG = "3";
+	/** 未授权码 **/
+	public static final String RESULT_UNAUTH = "4";
+	/** 不存在码 **/
+	public static final String RESULT_NOEXIST = "5";
 	
 	/** 单记录 **/
 	private T data;
@@ -23,6 +33,10 @@ public class Results<T> extends Bases implements Serializable {
 	private Integer total;
 	
 	public Results() {}
+	
+	public Results(String code, String desc) {
+		super(code, desc);
+	}
 	
 	public Results(T data) {
 		this.data = data;

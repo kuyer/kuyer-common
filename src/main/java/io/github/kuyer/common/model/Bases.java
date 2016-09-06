@@ -26,6 +26,13 @@ public class Bases implements Serializable {
 	/** 排序信息 **/
 	private Map<String, String> orders;
 	
+	public Bases() {}
+	
+	public Bases(String code, String desc) {
+		this.code = code;
+		this.desc = desc;
+	}
+	
 	public String getCode() {
 		return code;
 	}
