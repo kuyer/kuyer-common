@@ -1,6 +1,11 @@
 package io.github.kuyer.common;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import org.slf4j.Logger;
@@ -91,6 +96,107 @@ public class Dates {
 			logger.error(String.format("getString error. string: %s; format: %s.", str, format), e);
 		}
 		return null;
+	}
+	
+	/**
+	 * datetime转为date 没有时分秒
+	 * @param date
+	 * @return
+	 */
+	public static Date getDate(Date date) {//TODO
+		LocalDate datetime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()).toLocalDate();
+		return Date.from(datetime.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	}
+	
+	/**
+	 * 获取两个时间的秒数
+	 * @param date1
+	 * @param date2
+	 * @return
+	 */
+	public static long getSeconds(Date date1, Date date2) {
+		return toLocalDateTime(date1).until(toLocalDateTime(date2), ChronoUnit.SECONDS);
+	}
+	
+	/**
+	 * 获取两个时间的分钟数
+	 * @param date1
+	 * @param date2
+	 * @return
+	 */
+	public static long getMinutes(Date date1, Date date2) {
+		return toLocalDateTime(date1).until(toLocalDateTime(date2), ChronoUnit.MINUTES);
+	}
+	
+	/**
+	 * 获取两个时间的小时数
+	 * @param date1
+	 * @param date2
+	 * @return
+	 */
+	public static long getHours(Date date1, Date date2) {
+		return toLocalDateTime(date1).until(toLocalDateTime(date2), ChronoUnit.HOURS);
+	}
+	
+	/**
+	 * 获取两个日期之间的天数
+	 * @param date1
+	 * @param date2
+	 * @return
+	 */
+	public static int getDays(Date date1, Date date2) {
+		Period period = Period.between(toLocalDate(date1), toLocalDate(date2));
+		return period.getDays();
+	}
+	
+	/**
+	 * 获取两个日期的周数
+	 * @param date1
+	 * @param date2
+	 * @return
+	 */
+	public static long getWeeks(Date date1, Date date2) {
+		return toLocalDate(date1).until(toLocalDate(date2), ChronoUnit.WEEKS);
+	}
+	
+	/**
+	 * 获取两个日期之间的月数
+	 * @param date1
+	 * @param date2
+	 * @return
+	 */
+	public static int getMonths(Date date1, Date date2) {
+		Period period = Period.between(toLocalDate(date1), toLocalDate(date2));
+		return period.getMonths();
+	}
+	
+	/**
+	 * 获取两个日期之间的年数
+	 * @param date1
+	 * @param date2
+	 * @return
+	 */
+	public static int getYears(Date date1, Date date2) {
+		Period period = Period.between(toLocalDate(date1), toLocalDate(date2));
+		return period.getYears();
+	}
+	
+	/**
+	 * 转date类型为localdate类型
+	 * @param date
+	 * @return
+	 */
+	private static LocalDate toLocalDate(Date date) {
+		return toLocalDateTime(date).toLocalDate();
+	}
+	
+	/**
+	 * 转date类型为localdatetime类型
+	 * @param date
+	 * @return
+	 */
+	private static LocalDateTime toLocalDateTime(Date date) {
+		return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
 	}
 	
 }
