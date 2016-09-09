@@ -103,9 +103,9 @@ public class Dates {
 	 * @param date
 	 * @return
 	 */
-	public static Date getDate(Date date) {//TODO
-		LocalDate datetime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()).toLocalDate();
-		return Date.from(datetime.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	public static Date getDate(Date date) {
+		LocalDate localDate = toLocalDate(date);
+		return fromLocalDate(localDate);
 	}
 	
 	/**
@@ -188,6 +188,15 @@ public class Dates {
 	 */
 	private static LocalDate toLocalDate(Date date) {
 		return toLocalDateTime(date).toLocalDate();
+	}
+	
+	/**
+	 * 转localDate类型为date类型
+	 * @param localDate
+	 * @return
+	 */
+	private static Date fromLocalDate(LocalDate localDate) {
+		return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 	}
 	
 	/**
